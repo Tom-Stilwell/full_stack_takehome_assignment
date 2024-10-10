@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo } from "react";
 import axios, { AxiosResponse } from "axios";
 import Papa from "papaparse";
 
-// Alright, these are the types for validation errors and records—gotta keep things organized
 interface ValidationError {
     message: string;
     severity: "critical" | "warning";
@@ -28,7 +27,7 @@ interface Record {
 export default function DataReviewTable() {
     const [records, setRecords] = useState<Record[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null); // for now, only showing errors for data fetching
+    const [error, setError] = useState<string | null>(null); // For now, only showing errors for data fetching
     const [modalData, setModalData] = useState<Record | null>(null); // Handles modal appear when we need to show detailed error summaries
     const [searchQuery, setSearchQuery] = useState<string>(""); // Filtering the table by search
     const [hoveredError, setHoveredError] = useState<string | null>(null); // Used for tooltips on validation errors
@@ -142,24 +141,66 @@ export default function DataReviewTable() {
         return (
             <div
                 id="modal-background"
-                className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50"
+                className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50"
                 onClick={closeModal}
             >
-                <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md relative">
-                    <h2 className="text-xl font-bold mb-4">Error Summary for {record.name}</h2>
-                    <ul className="list-disc list-inside">
-                        {Object.entries(record.errors || {}).map(([field, error]) => (
-                            <li
-                                key={field}
-                                className={`mb-2 p-2 rounded ${getFieldColor(error?.severity)}`}
-                            >
-                                <strong className="capitalize">{field}:</strong> {error?.message}
-                            </li>
-                        ))}
-                    </ul>
+                <div className="bg-white rounded-lg shadow-2xl p-6 w-full max-w-lg relative">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">Error Summary for <span className="italic">{record.name}</span></h2>
+
+                    <div className="border-t border-gray-300 pt-4">
+                        <ul className="space-y-4">
+                            {Object.entries(record.errors || {}).map(([field, error]) => (
+                                <li
+                                    key={field}
+                                    className={`flex items-center space-x-4 p-3 rounded-lg ${getFieldColor(
+                                        error?.severity
+                                    )}`}
+                                >
+                                    {/* Different Icons for Severity */}
+                                    <span>
+                                        {error?.severity === "critical" ? (
+                                            // Critical Error Icon (X icon)
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="h-6 w-6 text-red-500"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L10 8.586 7.707 6.293a1 1 0 10-1.414 1.414L8.586 10l-2.293 2.293a1 1 0 101.414 1.414L10 11.414l2.293 2.293a1 1 0 001.414-1.414L11.414 10l2.293-2.293z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                        ) : (
+                                            // Warning Icon (Exclamation Mark icon)
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="h-6 w-6 text-yellow-500"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M18 10c0 4.418-3.582 8-8 8S2 14.418 2 10 5.582 2 10 2s8 3.582 8 8zm-9 4a1 1 0 102 0v-2a1 1 0 00-2 0v2zm2-7a1 1 0 11-2 0v3a1 1 0 112 0V7z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                        )}
+                                    </span>
+
+                                    <div>
+                                        <strong className="text-lg font-semibold capitalize">{field}:</strong>
+                                        <p className="text-sm text-gray-700">{error?.message}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
                     <button
-                        onClick={() => setModalData(null)} // Close the modal on click
-                        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+                        onClick={() => setModalData(null)}
+                        className="mt-6 w-full bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300"
                     >
                         Close
                     </button>
@@ -167,6 +208,8 @@ export default function DataReviewTable() {
             </div>
         );
     };
+
+
 
     // Loading state display
     if (loading) {
