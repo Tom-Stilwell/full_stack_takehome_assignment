@@ -223,7 +223,7 @@ export default function DataReviewTable() {
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-white relative">
-            <div className="p-6 overflow-scroll px-0 w-11/12 max-w-6xl cursor-[url('https://example.com/fun-cursor.png'), auto]">
+            <div className="p-6 overflow-scroll px-0 w-11/12 max-w-6xl">
                 <h1 className="text-3xl font-bold mb-6">Tom's Data Review</h1>
 
                 {/* Search input to filter through the records */}
