@@ -181,7 +181,7 @@ export default function DataReviewTable() {
     return (
         <div className="flex min-h-screen items-center justify-center bg-white relative">
             <div className="p-6 overflow-scroll px-0 w-11/12 max-w-6xl cursor-[url('https://example.com/fun-cursor.png'), auto]">
-                <h1 className="text-3xl font-bold mb-6">Data Review</h1>
+                <h1 className="text-3xl font-bold mb-6">Tom's Data Review</h1>
 
                 {/* Search input to filter through the records */}
                 <input
@@ -197,6 +197,7 @@ export default function DataReviewTable() {
                     <table className="w-full table-auto text-left">
                         <thead className="sticky top-0 bg-white z-10">
                             <tr>
+                                <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">ID</th>
                                 <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">Name</th>
                                 <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">Email</th>
                                 <th className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">Street</th>
@@ -209,6 +210,7 @@ export default function DataReviewTable() {
                         <tbody className="scroll-snap-align-start">
                             {filteredRecords.map((record) => (
                                 <tr key={record.id}>
+                                    <td className="p-4 border-b border-blue-gray-50 hover:bg-opacity-75">{record.id}</td>
                                     <td className="p-4 border-b border-blue-gray-50 hover:bg-opacity-75">
                                         {record.name}
                                     </td>
