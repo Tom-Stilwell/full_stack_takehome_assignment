@@ -1,7 +1,3 @@
-Here is the README in Markdown format:
-
----
-
 # Tom Stilwell's Data Review Table
 
 ## Approach
