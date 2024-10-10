@@ -3,8 +3,8 @@
 ## Approach
 
 ### 1. **Data Fetching**
-   - Data is fetched from a mock API endpoint (`/api/data`) using `axios`. The data consists of records with various fields and possible validation errors.
-   - I utilized the `useEffect` hook to fetch the data when the component mounts. Any errors during the fetch process are caught and displayed to the user.
+   - Data is fetched from a mock API endpoint (`/api/data`) using `axios`.
+   - I used the `useEffect` hook to fetch the data when the component mounts. Any errors during the fetch process are caught and displayed to the user.
 
 ### 2. **Search & Filter**
    - A search input field allows users to filter records in real time. The table filters records based on any field, making it easier to search across multiple columns.
